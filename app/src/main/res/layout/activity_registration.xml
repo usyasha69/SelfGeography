@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_registration"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginEnd="@dimen/ar_end_margin"
+    android:layout_marginStart="@dimen/ar_start_margin"
+    android:layout_marginTop="@dimen/ar_top_margin"
+    android:layout_marginBottom="@dimen/ar_bottom_margin"
+    tools:context="com.example.pk.selfgeography.UI.RegistrationActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ar_hint_name"
+        android:id="@+id/ar_name" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ar_hint_password"
+        android:id="@+id/ar_password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/ar_hint_country"
+        android:id="@+id/ar_country" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ar_registration"
+            android:id="@+id/ar_registration"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ar_clear"
+            android:id="@+id/ar_clear"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

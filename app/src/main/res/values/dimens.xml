@@ -1,0 +1,17 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="ald_progress_bar_margin">160dp</dimen>
+    <dimen name="ar_registration_data_fields_margin">24dp</dimen>
+    <dimen name="ar_end_margin">24dp</dimen>
+    <dimen name="ar_start_margin">24dp</dimen>
+    <dimen name="ar_top_margin">80dp</dimen>
+    <dimen name="ar_bottom_margin">80dp</dimen>
+    <dimen name="aa_end_margin">64dp</dimen>
+    <dimen name="aa_start_margin">64dp</dimen>
+    <dimen name="aa_top_margin">80dp</dimen>
+    <dimen name="aa_bottom_margin">80dp</dimen>
+    <dimen name="aq_margin">24dp</dimen>
+    <dimen name="as_statistics_rv_item_margin">12dp</dimen>
+</resources>

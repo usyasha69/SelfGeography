@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pk.selfgeography">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".UI.LoadingDataActivity"
+            android:label="Loading data..."
+            android:noHistory="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UI.RegistrationActivity"
+            android:label="Registration"
+            android:parentActivityName=".UI.AuthorizationActivity" />
+        <activity
+            android:name=".UI.AuthorizationActivity"
+            android:label="Authorization" />
+        <activity
+            android:name=".UI.QuestionActivity"
+            android:label="Questions"
+            android:parentActivityName=".UI.AuthorizationActivity" />
+        <activity android:name=".UI.StatisticsActivity"
+            android:label="Statistics"
+            android:parentActivityName=".UI.AuthorizationActivity">
+
+        </activity>
+    </application>
+
+</manifest>

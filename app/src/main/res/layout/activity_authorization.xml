@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_authorization"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginEnd="@dimen/aa_end_margin"
+    android:layout_marginStart="@dimen/aa_start_margin"
+    android:layout_marginTop="@dimen/aa_top_margin"
+    android:layout_marginBottom="@dimen/aa_bottom_margin"
+    tools:context="com.example.pk.selfgeography.UI.AuthorizationActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/aa_hint_name"
+        android:id="@+id/aa_name" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/aa_hint_password"
+        android:id="@+id/aa_password"
+        android:inputType="textPassword" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/aa_enter"
+            android:id="@+id/aa_enter"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/aa_clear"
+            android:id="@+id/aa_clear"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/aa_registration"
+        android:id="@+id/aa_registration"/>
+</LinearLayout>

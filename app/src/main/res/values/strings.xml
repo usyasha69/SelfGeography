@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SelfGeography</string>
+    <string name="ar_hint_name">Name</string>
+    <string name="ar_hint_password">Password</string>
+    <string name="ar_hint_country">Country</string>
+    <string name="ar_registration">registration</string>
+    <string name="ar_clear">clear</string>
+    <string name="aa_hint_name">Name</string>
+    <string name="aa_hint_password">Password</string>
+    <string name="aa_enter">enter</string>
+    <string name="aa_clear">clear</string>
+    <string name="aa_registration">registration</string>
+    <string name="aq_answer_the_question">answer the question</string>
+</resources>
