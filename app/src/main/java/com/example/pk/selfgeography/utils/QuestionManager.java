@@ -1,6 +1,5 @@
 package com.example.pk.selfgeography.utils;
 
-import com.example.pk.selfgeography.database.DatabaseManager;
 import com.example.pk.selfgeography.models.CountryModel;
 import com.example.pk.selfgeography.models.QuestionModel;
 
@@ -8,15 +7,14 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class QuestionManager {
-    private DatabaseManager databaseManager;
+    private ArrayList<CountryModel> countries;
 
-    public QuestionManager(DatabaseManager databaseManager) {
-        this.databaseManager = databaseManager;
+    public QuestionManager(ArrayList<CountryModel> countries) {
+        this.countries = countries;
     }
 
     public PriorityQueue<QuestionModel> createQuestions() {
         PriorityQueue<QuestionModel> questions = new PriorityQueue<>();
-        ArrayList<CountryModel> countries = databaseManager.readCountriesData();
 
         final int QUESTIONS_COUNTRY_CAPITAL = 4;
         final int QUESTIONS_COUNTRY_POPULATION = 3;

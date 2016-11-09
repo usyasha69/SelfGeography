@@ -2,15 +2,18 @@ package com.example.pk.selfgeography.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.pk.selfgeography.R;
+import com.example.pk.selfgeography.loaders.GetCountriesDataLoader;
+import com.example.pk.selfgeography.models.CountryModel;
 import com.example.pk.selfgeography.models.QuestionModel;
 import com.example.pk.selfgeography.models.UserInformationModel;
-import com.example.pk.selfgeography.database.DatabaseManager;
 import com.example.pk.selfgeography.utils.QuestionManager;
 
 import java.util.ArrayList;
@@ -20,9 +23,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Object> {
     public static final String ANSWERS_KEY = "answers";
     public static final String USER_NAME_KEY = "user name";
+
+    public static final int GET_COUNTRIES_DATA_LOADER = 0;
 
     @BindView(R.id.aq_question)
     TextView question;
@@ -36,8 +41,6 @@ public class QuestionActivity extends AppCompatActivity {
     RadioButton variantD;
 
     private UserInformationModel userInformationModel;
-    private QuestionManager questionManager;
-    private DatabaseManager databaseManager;
 
     private PriorityQueue<QuestionModel> questions;
     private QuestionModel questionModel;
@@ -51,10 +54,9 @@ public class QuestionActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         userInformationModel = getIntent().getParcelableExtra(AuthorizationActivity.USER_INFORMATION);
-        databaseManager = new DatabaseManager(this);
-        questionManager = new QuestionManager(databaseManager);
 
-        questions = questionManager.createQuestions();
+        getSupportLoaderManager().initLoader(GET_COUNTRIES_DATA_LOADER, null, this);
+
         answers = new ArrayList<>();
 
         fillingFields();
@@ -103,5 +105,31 @@ public class QuestionActivity extends AppCompatActivity {
                     .putExtra(ANSWERS_KEY, answers)
                     .putExtra(USER_NAME_KEY, userInformationModel.name));
         }
+    }
+
+    @Override
+    public Loader<Object> onCreateLoader(int id, Bundle args) {
+        Loader loader = null;
+
+        switch (id) {
+            case GET_COUNTRIES_DATA_LOADER:
+                loader = new GetCountriesDataLoader(this);
+                break;
+        }
+
+        return loader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Object> loader, Object data) {
+        switch (loader.getId()) {
+            case GET_COUNTRIES_DATA_LOADER:
+                questions = new QuestionManager((ArrayList<CountryModel>) data).createQuestions();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Object> loader) {
+
     }
 }
