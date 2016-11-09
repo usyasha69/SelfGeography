@@ -1,23 +1,22 @@
 package com.example.pk.selfgeography.utils;
 
-import android.content.Context;
-
-import com.example.pk.selfgeography.models.CountryParsingModel;
+import com.example.pk.selfgeography.database.DatabaseManager;
+import com.example.pk.selfgeography.models.CountryModel;
 import com.example.pk.selfgeography.models.QuestionModel;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class QuestionManager {
-    private DataKeeper dataKeeper;
+    private DatabaseManager databaseManager;
 
-    public QuestionManager(DataKeeper dataKeeper) {
-        this.dataKeeper = dataKeeper;
+    public QuestionManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
     }
 
     public PriorityQueue<QuestionModel> createQuestions() {
         PriorityQueue<QuestionModel> questions = new PriorityQueue<>();
-        ArrayList<CountryParsingModel> countries = dataKeeper.readData();
+        ArrayList<CountryModel> countries = databaseManager.readCountriesData();
 
         final int QUESTIONS_COUNTRY_CAPITAL = 4;
         final int QUESTIONS_COUNTRY_POPULATION = 3;
@@ -47,7 +46,7 @@ public class QuestionManager {
         return questions;
     }
 
-    private QuestionModel createCapitalQuestion(ArrayList<CountryParsingModel> countries) {
+    private QuestionModel createCapitalQuestion(ArrayList<CountryModel> countries) {
         final int RANDOM_COUNTRY = (int) (Math.random() * countries.size());
         final int ANSWER_VARIANTS = 3;
 
@@ -73,7 +72,7 @@ public class QuestionManager {
         return questionModel;
     }
 
-    private QuestionModel createPopulationQuestion(ArrayList<CountryParsingModel> countries) {
+    private QuestionModel createPopulationQuestion(ArrayList<CountryModel> countries) {
         final int RANDOM_COUNTRY = (int) (Math.random() * countries.size());
         final int ANSWER_VARIANTS = 3;
 
@@ -99,7 +98,7 @@ public class QuestionManager {
         return questionModel;
     }
 
-    private QuestionModel createAreaQuestion(ArrayList<CountryParsingModel> countries) {
+    private QuestionModel createAreaQuestion(ArrayList<CountryModel> countries) {
         final int RANDOM_COUNTRY = (int) (Math.random() * countries.size());
         final int ANSWER_VARIANTS = 3;
 
@@ -125,7 +124,7 @@ public class QuestionManager {
         return questionModel;
     }
 
-    private QuestionModel createRegionQuestion(ArrayList<CountryParsingModel> countries) {
+    private QuestionModel createRegionQuestion(ArrayList<CountryModel> countries) {
         final int RANDOM_COUNTRY = (int) (Math.random() * countries.size());
         final int ANSWER_VARIANTS = 3;
 

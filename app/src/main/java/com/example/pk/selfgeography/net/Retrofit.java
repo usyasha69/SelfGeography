@@ -1,6 +1,6 @@
 package com.example.pk.selfgeography.net;
 
-import com.example.pk.selfgeography.models.CountryParsingModel;
+import com.example.pk.selfgeography.models.CountryModel;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class Retrofit {
 
     private interface CountriesAPI {
         @GET("/rest/v1/all")
-        void getCountries(Callback<ArrayList<CountryParsingModel>> callback);
+        void getCountries(Callback<ArrayList<CountryModel>> callback);
     }
 
     private static void initialize() {
@@ -30,7 +30,7 @@ public class Retrofit {
         countriesAPI = adapter.create(CountriesAPI.class);
     }
 
-    public static void getCountries(Callback<ArrayList<CountryParsingModel>> callback) {
+    public static void getCountries(Callback<ArrayList<CountryModel>> callback) {
         countriesAPI.getCountries(callback);
     }
 }

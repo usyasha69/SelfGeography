@@ -2,7 +2,8 @@ package com.example.pk.selfgeography.utils;
 
 import android.content.Context;
 
-import com.example.pk.selfgeography.models.CountryParsingModel;
+import com.example.pk.selfgeography.database.DatabaseManager;
+import com.example.pk.selfgeography.models.CountryModel;
 
 import java.util.ArrayList;
 
@@ -57,11 +58,11 @@ public class Validator {
     public boolean isValidateCountry(String country) {
         boolean isValidate = false;
 
-        DataKeeper dataKeeper = new DataKeeper(context);
-        ArrayList<CountryParsingModel> countryParsingModels = dataKeeper.readData();
+        DatabaseManager databaseManager = new DatabaseManager(context);
+        ArrayList<CountryModel> countryModels = databaseManager.readCountriesData();
 
-        for (CountryParsingModel countryParsingModel : countryParsingModels) {
-            if (country.equals(countryParsingModel.name)) {
+        for (CountryModel countryModel : countryModels) {
+            if (country.equals(countryModel.name)) {
                 isValidate = true;
             }
         }

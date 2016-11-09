@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.pk.selfgeography.R;
 import com.example.pk.selfgeography.models.QuestionModel;
 import com.example.pk.selfgeography.models.UserInformationModel;
-import com.example.pk.selfgeography.utils.DataKeeper;
+import com.example.pk.selfgeography.database.DatabaseManager;
 import com.example.pk.selfgeography.utils.QuestionManager;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     private UserInformationModel userInformationModel;
     private QuestionManager questionManager;
-    private DataKeeper dataKeeper;
+    private DatabaseManager databaseManager;
 
     private PriorityQueue<QuestionModel> questions;
     private QuestionModel questionModel;
@@ -51,8 +51,8 @@ public class QuestionActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         userInformationModel = getIntent().getParcelableExtra(AuthorizationActivity.USER_INFORMATION);
-        dataKeeper = new DataKeeper(this);
-        questionManager = new QuestionManager(dataKeeper);
+        databaseManager = new DatabaseManager(this);
+        questionManager = new QuestionManager(databaseManager);
 
         questions = questionManager.createQuestions();
         answers = new ArrayList<>();

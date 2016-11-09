@@ -1,11 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
+def packageName = "com.example.pk.selfgeography"
+def authority = packageName + ".database"
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
     defaultConfig {
-        applicationId "com.example.pk.selfgeography"
+        applicationId packageName
         minSdkVersion 17
         targetSdkVersion 24
         versionCode 1
@@ -14,8 +17,18 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField 'String', 'AUTHORITY', "\"${authority}\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [
+                    authority           : "${authority}"
+            ]
+        }
+        debug {
+            buildConfigField 'String', 'AUTHORITY', "\"${authority}\""
+            manifestPlaceholders = [
+                    authority           : "${authority}"
+                    ]
         }
     }
 }

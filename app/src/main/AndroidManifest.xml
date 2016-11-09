@@ -38,6 +38,11 @@
             android:parentActivityName=".UI.AuthorizationActivity">
 
         </activity>
+        
+        <provider
+            android:authorities="${authority}"
+            android:name=".database.SelfGeographyContentProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

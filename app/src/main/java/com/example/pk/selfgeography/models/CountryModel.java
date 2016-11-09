@@ -2,9 +2,7 @@ package com.example.pk.selfgeography.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
-public class CountryParsingModel {
+public class CountryModel {
     public String name;
     public String capital;
     public String region;
