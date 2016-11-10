@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".UI.LoadingDataActivity"
-            android:label="Loading data..."
             android:noHistory="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

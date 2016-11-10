@@ -15,27 +15,18 @@ import retrofit.client.Response;
 
 public class InsertCountriesDataLoader extends AsyncTaskLoader<Object> {
     private DatabaseManager databaseManager;
+    private ArrayList<CountryModel> countries;
 
-    public InsertCountriesDataLoader(Context context) {
+    public InsertCountriesDataLoader(Context context, ArrayList<CountryModel> countries) {
         super(context);
 
+        this.countries = countries;
         databaseManager = new DatabaseManager(context);
     }
 
     @Override
     public Object loadInBackground() {
-        Retrofit.getCountries(new Callback<ArrayList<CountryModel>>() {
-            @Override
-            public void success(ArrayList<CountryModel> countryModels, Response response) {
-                databaseManager.saveCountriesData(countryModels);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
-
+        databaseManager.saveCountriesData(countries);
         return null;
     }
 }

@@ -9,19 +9,27 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.pk.selfgeography.R;
 import com.example.pk.selfgeography.loaders.CountriesDataExistLoader;
 import com.example.pk.selfgeography.loaders.InsertCountriesDataLoader;
+import com.example.pk.selfgeography.models.CountryModel;
+import com.example.pk.selfgeography.net.Retrofit;
+
+import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class LoadingDataActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks {
     public static final int COUNTRIES_DATA_EXISTS_LOADER = 0;
     public static final int INSERT_COUNTRIES_DATA_LOADER = 1;
+
+    private ArrayList<CountryModel> countries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_data);
 
-        getSupportLoaderManager().initLoader(COUNTRIES_DATA_EXISTS_LOADER, null, this);
-
-        startActivity(new Intent(LoadingDataActivity.this, AuthorizationActivity.class));
+        getSupportLoaderManager().initLoader(COUNTRIES_DATA_EXISTS_LOADER, null, this).forceLoad();
     }
 
     @Override
@@ -33,7 +41,7 @@ public class LoadingDataActivity extends AppCompatActivity implements LoaderMana
                 loader = new CountriesDataExistLoader(this);
                 break;
             case INSERT_COUNTRIES_DATA_LOADER:
-                loader = new InsertCountriesDataLoader(this);
+                loader = new InsertCountriesDataLoader(this, countries);
                 break;
         }
 
@@ -44,11 +52,27 @@ public class LoadingDataActivity extends AppCompatActivity implements LoaderMana
     public void onLoadFinished(Loader loader, Object data) {
         switch (loader.getId()) {
             case COUNTRIES_DATA_EXISTS_LOADER:
-                if (!(boolean) data) {
-                    getSupportLoaderManager().initLoader(INSERT_COUNTRIES_DATA_LOADER, null, this);
+                if (!((boolean) data)) {
+                    Retrofit.getCountries(new Callback<ArrayList<CountryModel>>() {
+                        @Override
+                        public void success(ArrayList<CountryModel> countryModels, Response response) {
+                            countries = countryModels;
+
+                            getSupportLoaderManager().initLoader(INSERT_COUNTRIES_DATA_LOADER, null
+                                    , LoadingDataActivity.this).forceLoad();
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+                } else {
+                    startActivity(new Intent(LoadingDataActivity.this, AuthorizationActivity.class));
                 }
                 break;
             case INSERT_COUNTRIES_DATA_LOADER:
+                startActivity(new Intent(LoadingDataActivity.this, AuthorizationActivity.class));
                 break;
         }
     }

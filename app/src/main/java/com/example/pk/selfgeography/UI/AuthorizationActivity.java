@@ -49,7 +49,7 @@ public class AuthorizationActivity extends AppCompatActivity implements LoaderMa
 
         if (!putName.isEmpty() && !putPassword.isEmpty()) {
 
-            getSupportLoaderManager().initLoader(USER_INFORMATION_DATA_IS_EXIST_LOADER, null, this);
+            getSupportLoaderManager().initLoader(USER_INFORMATION_DATA_IS_EXIST_LOADER, null, this).forceLoad();
 
         } else {
             Toast.makeText(this, "Fields is empty!", Toast.LENGTH_SHORT).show();
@@ -83,7 +83,7 @@ public class AuthorizationActivity extends AppCompatActivity implements LoaderMa
         switch (loader.getId()) {
             case USER_INFORMATION_DATA_IS_EXIST_LOADER:
                 if ((boolean) data) {
-                    getSupportLoaderManager().initLoader(GET_USER_INFORMATION_DATA_LOADER, null, this);
+                    getSupportLoaderManager().initLoader(GET_USER_INFORMATION_DATA_LOADER, null, this).forceLoad();
                 } else {
                     Toast.makeText(this, "User is not exists!", Toast.LENGTH_SHORT).show();
                 }

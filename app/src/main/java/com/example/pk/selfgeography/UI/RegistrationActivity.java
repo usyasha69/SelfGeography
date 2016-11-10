@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.example.pk.selfgeography.R;
 import com.example.pk.selfgeography.loaders.InsertUserInformationDataLoader;
 import com.example.pk.selfgeography.loaders.UserInformationDataExistLoader;
+import com.example.pk.selfgeography.loaders.ValidateUserInformationFieldsLoader;
 import com.example.pk.selfgeography.models.UserInformationModel;
-import com.example.pk.selfgeography.utils.Validator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +21,7 @@ import butterknife.OnClick;
 public class RegistrationActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Object> {
     public static final int USER_INFORMATION_DATA_IS_EXIST_LOADER = 0;
     public static final int INSERT_USER_INFORMATION_DATA_LOADER = 1;
+    public static final int VALIDATE_USER_INFORMATION_FIELDS_LOADER = 2;
 
     @BindView(R.id.ar_name)
     TextView name;
@@ -29,7 +30,6 @@ public class RegistrationActivity extends AppCompatActivity implements LoaderMan
     @BindView(R.id.ar_country)
     TextView country;
 
-    private Validator validator;
     private String putName;
     private String putPassword;
     private String putCountry;
@@ -43,13 +43,12 @@ public class RegistrationActivity extends AppCompatActivity implements LoaderMan
 
     @OnClick(R.id.ar_registration)
     public void registration() {
-        validator = new Validator(this);
 
         putName = name.getText().toString();
         putPassword = password.getText().toString();
         putCountry = country.getText().toString();
 
-        getSupportLoaderManager().initLoader(USER_INFORMATION_DATA_IS_EXIST_LOADER, null, this);
+        getSupportLoaderManager().initLoader(USER_INFORMATION_DATA_IS_EXIST_LOADER, null, this).forceLoad();
     }
 
     @OnClick(R.id.ar_clear)
@@ -71,6 +70,9 @@ public class RegistrationActivity extends AppCompatActivity implements LoaderMan
                 loader = new InsertUserInformationDataLoader(this
                         , new UserInformationModel(putName, putPassword, putCountry));
                 break;
+            case VALIDATE_USER_INFORMATION_FIELDS_LOADER:
+                loader = new ValidateUserInformationFieldsLoader(this, putName, putPassword, putCountry);
+                break;
         }
 
         return loader;
@@ -85,18 +87,18 @@ public class RegistrationActivity extends AppCompatActivity implements LoaderMan
                     break;
                 }
 
-                if (!putName.isEmpty() && validator.isValidatePassword(putPassword)
-                        && validator.isValidateCountry(putCountry)) {
-
-                    getSupportLoaderManager().initLoader(INSERT_USER_INFORMATION_DATA_LOADER, null, this);
-
-                } else {
-                    Toast.makeText(this, "Please, enter right fields!", Toast.LENGTH_SHORT).show();
-                }
+                getSupportLoaderManager().initLoader(VALIDATE_USER_INFORMATION_FIELDS_LOADER, null, this).forceLoad();
                 break;
             case INSERT_USER_INFORMATION_DATA_LOADER:
                 startActivity(new Intent(this, AuthorizationActivity.class));
                 break;
+            case VALIDATE_USER_INFORMATION_FIELDS_LOADER:
+                if ((boolean) data) {
+
+                    getSupportLoaderManager().initLoader(INSERT_USER_INFORMATION_DATA_LOADER, null, this).forceLoad();
+                } else {
+                    Toast.makeText(this, "Please, enter right fields!", Toast.LENGTH_SHORT).show();
+                }
         }
     }
 

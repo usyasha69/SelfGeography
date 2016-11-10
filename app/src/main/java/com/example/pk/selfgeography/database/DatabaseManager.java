@@ -23,18 +23,22 @@ public class DatabaseManager {
      * @param countryModels - array list with country parsing models
      */
     public void saveCountriesData(ArrayList<CountryModel> countryModels) {
-        ContentValues[] contentValues = new ContentValues[countryModels.size()];
+        ContentValues[] contentValuesArray = new ContentValues[countryModels.size()];
 
-        for (int i = 0; i < contentValues.length; i++) {
-            contentValues[i].put(CountryTable.Columns.NAME, countryModels.get(i).name);
-            contentValues[i].put(CountryTable.Columns.CAPITAL, countryModels.get(i).capital);
-            contentValues[i].put(CountryTable.Columns.REGION, countryModels.get(i).region);
-            contentValues[i].put(CountryTable.Columns.SUB_REGION, countryModels.get(i).subRegion);
-            contentValues[i].put(CountryTable.Columns.POPULATION, countryModels.get(i).population);
-            contentValues[i].put(CountryTable.Columns.AREA, countryModels.get(i).area);
+        for (int i = 0; i < contentValuesArray.length; i++) {
+            ContentValues contentValues = new ContentValues();
+
+            contentValues.put(CountryTable.Columns.NAME, countryModels.get(i).name);
+            contentValues.put(CountryTable.Columns.CAPITAL, countryModels.get(i).capital);
+            contentValues.put(CountryTable.Columns.REGION, countryModels.get(i).region);
+            contentValues.put(CountryTable.Columns.SUB_REGION, countryModels.get(i).subRegion);
+            contentValues.put(CountryTable.Columns.POPULATION, countryModels.get(i).population);
+            contentValues.put(CountryTable.Columns.AREA, countryModels.get(i).area);
+
+            contentValuesArray[i] = contentValues;
         }
 
-        contentResolver.bulkInsert(CountryTable.CONTENT_URI, contentValues);
+        contentResolver.bulkInsert(CountryTable.CONTENT_URI, contentValuesArray);
     }
 
     /**
@@ -114,8 +118,8 @@ public class DatabaseManager {
     public UserInformationModel readUserInformation(String name) {
         UserInformationModel userInformationModel = new UserInformationModel();
 
-        Cursor cursor = contentResolver.query(UserInformationTable.CONTENT_URI, null, "WHERE " +
-                UserInformationTable.Columns.NAME + " =?", new String[] {name}, null, null);
+        Cursor cursor = contentResolver.query(UserInformationTable.CONTENT_URI, null
+                , UserInformationTable.Columns.NAME + " = ?", new String[] {name}, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -140,8 +144,8 @@ public class DatabaseManager {
     public boolean isExistUser(String name) {
         boolean isExistUser = false;
 
-        Cursor cursor = contentResolver.query(UserInformationTable.CONTENT_URI, null, "WHERE " +
-                UserInformationTable.Columns.NAME + " =?", new String[] {name}, null, null);
+        Cursor cursor = contentResolver.query(UserInformationTable.CONTENT_URI, null
+                , UserInformationTable.Columns.NAME + " = ?", new String[] {name}, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             isExistUser = true;

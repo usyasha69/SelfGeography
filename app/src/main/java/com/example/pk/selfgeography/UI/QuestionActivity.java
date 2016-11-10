@@ -55,11 +55,9 @@ public class QuestionActivity extends AppCompatActivity implements LoaderManager
 
         userInformationModel = getIntent().getParcelableExtra(AuthorizationActivity.USER_INFORMATION);
 
-        getSupportLoaderManager().initLoader(GET_COUNTRIES_DATA_LOADER, null, this);
+        getSupportLoaderManager().initLoader(GET_COUNTRIES_DATA_LOADER, null, this).forceLoad();
 
         answers = new ArrayList<>();
-
-        fillingFields();
     }
 
     private void fillingFields() {
@@ -125,6 +123,7 @@ public class QuestionActivity extends AppCompatActivity implements LoaderManager
         switch (loader.getId()) {
             case GET_COUNTRIES_DATA_LOADER:
                 questions = new QuestionManager((ArrayList<CountryModel>) data).createQuestions();
+                fillingFields();
         }
     }
 

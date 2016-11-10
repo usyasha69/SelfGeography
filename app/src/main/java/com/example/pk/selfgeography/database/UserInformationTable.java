@@ -13,7 +13,7 @@ public class UserInformationTable implements Table {
             + NAME
             + "("
             + Columns._ID
-            + "INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + Columns.NAME
             + " TEXT, "
             + Columns.PASSWORD
